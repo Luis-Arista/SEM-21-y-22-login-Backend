@@ -10,7 +10,7 @@ const UserService = class {
     async create(userData) {
         const newUser = new this.Model(userData);
         newUser.save();
-        delete newUser.password;
+        await delete newUser.contraseña;
         return newUser.toObject()
     }
 }

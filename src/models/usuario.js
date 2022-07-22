@@ -40,7 +40,6 @@ const UsuarioEsquema = new Schema({
 
 UsuarioEsquema.pre('save' , function(next){
 
-    console.log(this.contraseña , this.email);
     console.log('----------------------------');
     const encriptarContraseña = bcrypt.hashSync(this.contraseña, 12);
     this.contraseña = encriptarContraseña
