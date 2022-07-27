@@ -1,36 +1,27 @@
 const express = require('express');
 const router = express.Router();
-const modeloDeUsuario = require( '../models/usuario')
-const UserService = require('../services/usuarios')
-const {controladorUsuarios} = require('../controller')
-const { getUsuario , eliminarUsuario , buscarUsuarioId } = controladorUsuarios
+ const {controladorUsuarios} = require('../controller')
  
 
-const userService = new UserService( modeloDeUsuario )
+ 
+router.get( '/me' , async( req , res ) => {
+    const sessionUser  = req.user 
 
-router.post( '/' , async( req , res ) => {
-    const body = req.body;
-    const usuario = await userService.create(body);
+    if(!sessionUser){
+        return res.status(403).send({
+            message: 'Tu no deverias estar aqui'
+        })
+    }
+    
+    res.send({
+        nombre: sessionUser.nombre,
+        usuario: sessionUser.usuario,
+        email: sessionUser.email,
+        roll: sessionUser.roll
+    })
 
-    res.status(201).send(usuario)
 })
 
-router.get( '/' , async( req , res ) => {
-    const usuarios = await getUsuario()
-    res.send(usuarios)
-} )
-
-router.get( '/:id' , async( req , res) => {
-    const {id} = req.params
-    const usuario = await buscarUsuarioId( id )
-    res.send(usuario)
-})
-
-router.delete( '/:id' , async ( req , res ) => {
-    const {id} = req.params
-    const resultado = await eliminarUsuario(id)
-    res.send(resultado)
-} )
 
 
 
