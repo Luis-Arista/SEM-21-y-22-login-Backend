@@ -9,7 +9,9 @@ app.use( cors() );
 app.use( '/api' , apiRouter )
 
 app.use( '/' , ( req , res ) => {
-    res.send('esto funciona')
+    res.send({
+        mensaje: 'esto funciona'
+    })
 })
 
 module.exports = app 
