@@ -6,7 +6,7 @@ const { getUsuario , eliminarUsuario , buscarUsuarioId } = controladorUsuarios
 
 router.get( '/' , async( req , res ) => {
     const usuarios = await getUsuario()
-    res.send(usuarios)
+    res.status(201).send(usuarios)
 } )
 
 router.get( '/:id' , async( req , res) => {

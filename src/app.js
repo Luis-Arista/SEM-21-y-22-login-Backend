@@ -14,4 +14,6 @@ app.use( '/' , ( req , res ) => {
     })
 })
 
+//para que funcione kuski se tiene que quitar la variable de entorno, agregar start a package.json
+
 module.exports = app 
