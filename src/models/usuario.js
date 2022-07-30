@@ -1,37 +1,38 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs')
+const uniqueValidator = require('mongoose-unique-validator')
 const { Schema , model } = mongoose;
-
 
 const UsuarioEsquema = new Schema({
     nombre:{
         type: String,
-        require: true
+        required: [ true , 'El nombre es requerido']
     },
 
     apellido: {
         type: String,
-        require: true
+        required: true
     },
 
     usuario: {
         type: String,
-        require: true
+        required: true
     },
 
     email: {
         type: String,
-        require: true
+        required: true,
+        unique: true
     },
 
     contraseña:{
         type: String,
-        require:true
+        required:true
     },
 
     roll:{
         type: String,
-        require:true
+        required:true
     }
 },{
     versionKey:false,
@@ -48,6 +49,8 @@ UsuarioEsquema.pre('save' , function(next){
 
     next()
 })
+
+UsuarioEsquema.plugin( uniqueValidator , { message: 'email repetido'} )
 
 const modeloDeUsuario = model( 'usuarios' , UsuarioEsquema );
 
